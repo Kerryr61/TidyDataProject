@@ -92,5 +92,11 @@ names(fulldata) <- gsub("fBodyBodyGyro","frequencyBodyBodyGyro", names(fulldata)
 fulldataDT <- data.table(fulldata) 
 # get the mean of all columns
 fulldatamean<-fulldataDT[, lapply(.SD, mean), by = c("subjectID","activity")]
+
+# change variable names to reflect mean operation
+names(fulldatamean)<- gsub("angle", "mean_angle", names(fulldatamean))
+names(fulldatamean)<- gsub("frequency", "mean_frequency", names(fulldatamean))
+names(fulldatamean)<- gsub("time", "mean_time", names(fulldatamean))
+
 # write the table to a file
 write.table(fulldatamean, file="./fulldatamean.txt", row.names = F)
